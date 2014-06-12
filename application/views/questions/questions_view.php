@@ -1,6 +1,14 @@
 <?php $this->load->helper('form'); ?>
 <div class="panel panel-default">
-	<div class="panel-heading">Questionairre</div>
+	<?php
+		if (validation_errors()) { ?>
+			<div class='alert alert-danger alert-dismissable'>
+			<button class="close" type="button" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times fa-fw"></i></button>
+			<?php echo validation_errors(); ?>
+			</div>
+		<?php }
+	?>
+	<div class="panel-heading">Questionaire</div>
 	<div class="panel-body">
 		<ul class="nav nav-tabs nav-justified" id="profileTabs">
 			<li class="active"><a href="#demographics" data-toggle="tab"><i class="fa fa-user fa-fw"></i> Demographics</a></li>

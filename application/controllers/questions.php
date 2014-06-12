@@ -2,9 +2,9 @@
 
 class Questions extends Priv_Controller {
 
-	private $demographics;
-	private $financial;
-	private $risk;
+	private $_demographics;
+	private $_financial;
+	private $_risk;
 
 	function __construct()
 	{
@@ -14,13 +14,13 @@ class Questions extends Priv_Controller {
 		$this->load->library('form_validation');
 		$this->load->library('question');
 		$this->load->helper('form');
+		$this->_demographics 	= $this->questions_model->getQuestions('1');
+		$this->_financial 		= $this->questions_model->getQuestions('2');
+		$this->_risk 			= $this->questions_model->getQuestions('3');
 	}
 
 	public function index()
 	{
-		$this->demographics 	= $this->questions_model->getQuestions('1');
-		$this->financial 		= $this->questions_model->getQuestions('2');
-		$this->risk 			= $this->questions_model->getQuestions('3');
 
 		// echo "<pre>";
 		// print_r($demographics);
@@ -28,20 +28,15 @@ class Questions extends Priv_Controller {
 
 		$data = array(
 			'content' 		=> 'questions/questions_view',
-			'demographics'	=> $this->demographics,
-			'financial'		=> $this->financial,
-			'risk'			=> $this->risk
+			'demographics'	=> $this->_demographics,
+			'financial'		=> $this->_financial,
+			'risk'			=> $this->_risk
 			);
 		$this->load->view('template', $data);
 	}
 
 	function submit()
 	{
-		// echo "<pre>";
-		// print_r($this->input->post());
-		// echo "</pre>";
-		// die;
-
 		$this->form_validation->set_rules('1'	, 'Demographics-Education'			, 'trim|required|xss_clean');
 		$this->form_validation->set_rules('2'	, 'Demographics-Age'				, 'trim|required|numeric|xss_clean');
 		$this->form_validation->set_rules('3'	, 'Demographics-Retire Age'			, 'trim|required|numeric|xss_clean');
@@ -66,11 +61,18 @@ class Questions extends Priv_Controller {
 
 		// RUN form validation here and determine outputs...
 		// NEED to figure out how to re-populate form -> redirect clears out $_POST and any other way won't re-query DB for questions (not efficiently)
+		// May have figured out this section -> needs further testing.
 		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('type', 'alert-danger');
-			$this->session->set_flashdata('message', validation_errors());
-			redirect('questions/index');
-
+			// $this->session->set_flashdata('type', 'alert-danger');
+			// $this->session->set_flashdata('message', validation_errors());
+			// redirect('questions/index','refresh');
+			$data = array(
+				'content' 		=> 'questions/questions_view',
+				'demographics'	=> $this->_demographics,
+				'financial'		=> $this->_financial,
+				'risk'			=> $this->_risk,
+				);
+			$this->load->view('template', $data);
 		} else {
 			$set_id = $this->questions_model->createDataSet($this->input->post('user_id'));
 			foreach ($this->input->post() as $question => $value) {

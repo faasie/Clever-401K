@@ -55,6 +55,7 @@ class Auth extends MY_Controller {
 	function logout()
 	{
 		$this->ion_auth->logout();
+		// $this->session->sess_destroy();
 		$this->session->set_flashdata('type', 'alert-success');
 		$this->session->set_flashdata('message', 'Logout successful.');
 		redirect('site','refresh');
