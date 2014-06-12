@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://clever-401k.local';
+$config['base_url']	= 'http://www.clever-401k.com';
 
 /*
 |--------------------------------------------------------------------------
