@@ -36,7 +36,7 @@ class Question {
 								$data = array(
 									'name'	=> $this->id,
 									'id'	=> $id,
-									'value'	=> $id
+									'value'	=> set_radio($this->id, $id)
 									);
 								echo form_radio($data);
 								echo $a['answer'];

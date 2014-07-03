@@ -12,15 +12,19 @@ class Dashboard_library
 		$this->CI =& get_instance();
 		$this->CI->load->library('table');
 		$this->template = array(
-			 'table_open' => '<table width="75%" class="table table-striped table-bordered table-condensed">'
+			'table_open' => '<table width="75%" class="table">'
 			);
+			 // 'table_open' => '<table width="75%" class="table table-striped table-bordered table-condensed">'			 
 		$this->CI->table->set_template($this->template);
 	}
 
 	public function showUserInfo()
 	{
-		$this->CI->table->set_heading('User', 'Company');
-		$this->CI->table->add_row($this->_data['user']->first_name . " " . $this->_data['user']->last_name, $this->_data['user']->company);
+		$this->CI->table->add_row('<strong>Gender</strong>', $this->_data['user']->gender);
+		$this->CI->table->add_row('<strong>Age</strong>', $this->_data['user']->age);
+		$this->CI->table->add_row('<strong>Retirement Age</strong>', $this->_data['user']->retirement_age);
+		$this->CI->table->add_row('<strong>Education</strong>', $this->_data['user']->edu_level);
+
 		echo $this->CI->table->generate();
 	}
 

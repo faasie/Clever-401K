@@ -8,6 +8,11 @@ class Auth extends MY_Controller {
 		$pw 	= $this->input->post('password');
 
 		if ($this->ion_auth->login($user, $pw)) {
+			$user = $this->ion_auth->user()->row();
+			$this->session->set_userdata('fullname', $user->first_name . " " . $user->last_name);
+			$this->session->set_userdata('user_id', $user->id);
+			$this->session->set_userdata('username', $user->username);
+			$this->session->set_userdata('company_id', $user->company);
 			redirect('dashboard','refresh');
 		} else {
 			$msg = (!$this->ion_auth->username_check($user)) ? "Username not found!" : "Login failed. Please try again.";
