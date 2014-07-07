@@ -13,29 +13,21 @@
 					<div class="col-md-6">
 						<div class="panel panel-default">
 							<div class="panel-heading"><strong><?php echo $this->session->userdata('fullname'); ?></strong></div>
-							<!-- <div class="panel-body">Body</div> -->
- 							<?php $this->dashboard_library->showUserInfo(); ?>
+							<div class="panel-body">
+ 								<?php $this->dashboard_library->showUserInfo(); ?>
+ 							</div>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="panel panel-default">
-							<div class="panel-heading"><strong> <?php echo $this->session->userdata('companyname'); ?> </strong></div>
-							<!-- <div class="panel-body">Body</div> -->
-							<!-- // <?php $this->dashboard_library->showCompanyInfo(); ?> -->
-							<?php $this->dashboard_library->showPlansInfo(); ?>
-
+							<div class="panel-heading"><strong> <?php echo $this->session->userdata('companyname'); ?> - Available Plans (by provider)</strong></div>
+							<div class="panel-body">
+								<?php $this->dashboard_library->showPlansInfo(); ?>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-<!--
- 			<div class="tab-pane fade" id="companyData">
-				<?php $this->dashboard_library->showCompanyInfo(); ?>
-				<br>
-				<?php $this->dashboard_library->showPlansInfo(); ?>
-				<br>
-			</div>
- -->
  			<div class="tab-pane fade" id="qData">
 				<?php $this->dashboard_library->showQuestionHistory(); ?>
 				<p><a href="<?php echo base_url(); ?>questions" class="btn btn-primary"><i class="fa fa-question-circle fa-fw"></i> Go to questions.</a></p>
@@ -47,8 +39,11 @@
 		</div>
 	</div>
 </div>
-  <script>
-  $(function() {
-    $( "#accordion" ).accordion({active: false});
-  });
-  </script>
+<script>
+$(function() {
+  $( "#plans" ).accordion({
+    collapsible: true,
+    active: false,
+	heightStyle: "content"});
+});
+</script>

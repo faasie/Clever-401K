@@ -37,35 +37,33 @@ class Questions extends Priv_Controller {
 
 	function submit()
 	{
-		$this->form_validation->set_rules('1'	, 'Demographics-Education'			, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('2'	, 'Demographics-Age'				, 'trim|required|numeric|xss_clean');
-		$this->form_validation->set_rules('3'	, 'Demographics-Retire Age'			, 'trim|required|numeric|xss_clean');
-		$this->form_validation->set_rules('4'	, 'Financial-401K Amount'			, 'trim|required|numeric|xss_clean');
-		$this->form_validation->set_rules('5'	, 'Financial-401K Contribution'		, 'trim|required|numeric|xss_clean');
-		$this->form_validation->set_rules('6'	, 'Financial-Saving Enough'			, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('7'	, 'Financial-Houshold Income Enough', 'trim|required|xss_clean');
-		$this->form_validation->set_rules('8'	, 'Financial-Life Event'			, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('9'	, 'Financial-Life Event Amount'		, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('10'	, 'Financial-Retirement Portion'	, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('11'	, 'Financial-Investment Length'		, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('12'	, 'Financial-Income Sources'		, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('18'	, 'Financial-Average American'		, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('19'	, 'Financial-Salary or Commission'	, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('13'	, 'Risk-Fluctuation'				, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('14'	, 'Risk-Declines'					, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('15'	, 'Risk-Degree'						, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('16'	, 'Risk-Percent Downturn'			, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('17'	, 'Risk-Three Month'				, 'trim|required|xss_clean');
-		$this->form_validation->set_rules('20'	, 'Risk-Losses or Gains'			, 'trim|required|xss_clean');
+		echo "<pre>";
+		print_r($this->input->post());
+		echo "</pre>";
+		// $this->form_validation->set_rules('Demographics-Education'	, 'Demographics-Education'			, 'trim|required|xss_clean');
+		// $this->form_validation->set_rules('Demographics-Age'			, 'Demographics-Age'				, 'trim|required|numeric|xss_clean');
+		// $this->form_validation->set_rules('Demographics-Retire'		, 'Demographics-Retire Age'			, 'trim|required|numeric|xss_clean');
+		$this->form_validation->set_rules('Financial-401K-Amount'		, 'Financial-401K Amount'			, 'trim|required|numeric|xss_clean');
+		$this->form_validation->set_rules('Financial-401K-Contribute'	, 'Financial-401K Contribution'		, 'trim|required|numeric|xss_clean');
+		$this->form_validation->set_rules('Financial-Saving-Enough'		, 'Financial-Saving Enough'			, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Financial-Houshold-Income'	, 'Financial-Houshold Income Enough', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Financial-Life-Event'		, 'Financial-Life Event'			, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Financial-Life-Event-Amount'	, 'Financial-Life Event Amount'		, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Financial-Retirement-Portion', 'Financial-Retirement Portion'	, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Financial-Investment-Length'	, 'Financial-Investment Length'		, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Financial-Income-Sources'	, 'Financial-Income Sources'		, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Financial-Average-American'	, 'Financial-Average American'		, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Financial-Salary-Commission'	, 'Financial-Salary or Commission'	, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Risk-Fluctuation'			, 'Risk-Fluctuation'				, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Risk-Declines'				, 'Risk-Declines'					, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Risk-Degree'					, 'Risk-Degree'						, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Risk-Percent-Downturn'		, 'Risk-Percent Downturn'			, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Risk-Three-Month'			, 'Risk-Three Month'				, 'trim|required|xss_clean');
+		$this->form_validation->set_rules('Risk-Losses-Gains'			, 'Risk-Losses or Gains'			, 'trim|required|xss_clean');
 
 
 		// RUN form validation here and determine outputs...
-		// NEED to figure out how to re-populate form -> redirect clears out $_POST and any other way won't re-query DB for questions (not efficiently)
-		// May have figured out this section -> needs further testing.
 		if ($this->form_validation->run() == FALSE) {
-			// $this->session->set_flashdata('type', 'alert-danger');
-			// $this->session->set_flashdata('message', validation_errors());
-			// redirect('questions/index','refresh');
 			$data = array(
 				'content' 		=> 'questions/questions_view',
 				'demographics'	=> $this->_demographics,

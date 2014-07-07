@@ -5,7 +5,9 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/views/css/bootstrap.css">
 		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>application/views/css/style.css">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
 		<script src="<?php echo base_url(); ?>application/views/js/jquery.js" type="text/javascript"></script>
+		<script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 	</head>
 	<body>
 		<!-- Navbar -->

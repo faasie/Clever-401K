@@ -1,4 +1,10 @@
-<?php $this->load->helper('form'); ?>
+<?php $this->load->helper('form'); 
+	if ($this->input->post()) {
+		echo "<pre>";
+		print_r($this->input->post());
+		echo "</pre>";
+	}
+?>
 <div class="panel panel-default">
 	<?php
 		if (validation_errors()) { ?>
@@ -11,24 +17,23 @@
 	<div class="panel-heading">Questionaire</div>
 	<div class="panel-body">
 		<ul class="nav nav-tabs nav-justified" id="profileTabs">
-			<li class="active"><a href="#demographics" data-toggle="tab"><i class="fa fa-user fa-fw"></i> Demographics</a></li>
-			<li><a href="#financials" data-toggle="tab"><i class="fa fa-money fa-fw"></i> Financials</a></li>
+			<!-- <li class="active"><a href="#demographics" data-toggle="tab"><i class="fa fa-user fa-fw"></i> Demographics</a></li> -->
+			<li class="active"><a href="#financials" data-toggle="tab"><i class="fa fa-money fa-fw"></i> Financials</a></li>
 			<li><a href="#risk" data-toggle="tab"><i class="fa fa-flash fa-fw"></i> Risk Assessment</a></li>
 		</ul>
 		<?php echo form_open('questions/submit', '', array('user_id' => $this->session->userdata['user_id'])); ?>
 		<div class="tab-content" id="profileTabContent">
-			<div class="tab-pane fade in active" id="demographics">
-				<!-- Start of Demographics questions -->
+<!-- 			<div class="tab-pane fade in active" id="demographics">
 				<?php
-					foreach ($demographics as $q) {
-						$q->printQuestion();
-					}
+//					foreach ($demographics as $q) {
+//						$q->printQuestion();
+//					}
 				?>
 				<div class="col-sm-offset-10">
 					<a href="#" class="btn btn-primary" id="next">Next <i class="fa fa-chevron-right fa-fw"></i></a>
 				</div>
-			</div>
-			<div class="tab-pane fade" id="financials">
+			</div> -->
+			<div class="tab-pane fade in active" id="financials">
 				<!-- Start of Financial questions -->
 				<?php
 					foreach ($financial as $q) {

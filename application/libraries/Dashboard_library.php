@@ -11,6 +11,7 @@ class Dashboard_library
 		$this->_data = $data;
 		$this->CI =& get_instance();
 		$this->CI->load->library('table');
+		$this->CI->load->helper('html');
 		$this->template = array(
 			'table_open' => '<table width="75%" class="table">'
 			);
@@ -37,11 +38,18 @@ class Dashboard_library
 
 	public function showPlansInfo()
 	{
-		$this->CI->table->set_heading('Available Plans', 'Plan Description');
-		foreach ($this->_data['plans'] as $p) {
-			$this->CI->table->add_row($p->plan_name, $p->plan_description);
+		// echo "<div class='well'>";
+		echo '<div id="plans">';
+		foreach ($this->_data['plans'] as $provider => $plans) {
+			echo "<p>" . $provider . "</p>";
+			echo "<div>";
+			echo "<p>";
+			echo ul($plans);
+			echo "</p>";
+			echo "</div>";
 		}
-		echo $this->CI->table->generate();
+		echo "</div>";
+		// echo "</div>";
 	}
 
 	public function showQuestionHistory()

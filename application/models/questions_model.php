@@ -8,7 +8,8 @@ class Questions_model extends CI_Model {
 		$this->db->select('q.question_id, q.text, q.type, q.question_name, a.answer_id, a.answer, a.value')
 			->from('q_questions q')
 			->join('q_answers a','q.question_id = a.question_id','left')
-			->where('q.category_id',$category);
+			->where('q.category_id',$category)
+			->where('q.enabled', TRUE);
 		$query = $this->db->get();
 		$current = 0;
 		foreach ($query->result() as $q) {
@@ -26,7 +27,9 @@ class Questions_model extends CI_Model {
 				$questions[$q->question_id]->answers[$q->answer_id] = array('answer' => $q->answer, 'value' => $q->value);
 			}
 		}
-
+		// echo "<pre>";
+		// print_r($questions);
+		// echo "</pre>";
 		return $questions;
 	}	
 

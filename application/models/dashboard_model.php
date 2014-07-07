@@ -38,14 +38,7 @@ class Dashboard_model extends CI_model
 
 	function getPlans($company_id)
 	{
-		// $this->db->select('b.plan_name, b.plan_description')
-		// 	->from('company_plan a')
-		// 	->join('plans b','a.plan_id = b.plan_id')
-		// 	->where('company_id', $company_id)
-		// 	->where('enabled', TRUE);
-		// $q = $this->db->get();
-		// return $q->result();
-		$this->db->select('c.name, e.symbol, e.plan_name')
+		$this->db->select('c.provider_id, c.name, e.plan_name')
 			->from('company_provider a, company b, providers c, provider_plans d, plans e')
 			->where('b.company_id', $company_id)
 			->where('e.enabled', TRUE)
@@ -54,21 +47,26 @@ class Dashboard_model extends CI_model
 			->where('c.provider_id = d.provider_id')
 			->where('d.plan_id = e.plan_id');
 		$q = $this->db->get();
-		echo "<pre>";
-		print_r($q->result());
-		echo "</pre>";
-		// $plans = array();
-		// $current = 0;
-		// foreach ($q->result() as $p) {
-		// 	if ($p->name == $current) {
-		// 		echo "in loop: " . $current . "<br>";
-		// 		$plans[$p->name] = array();
-
-		// 		$current = $p->name;
-		// 	}
-		// }
+		// echo "<pre>";
+		// print_r($q->result());
+		// echo "</pre>";
+		$plans = array();
+		$current = 0;
+		foreach ($q->result() as $p) {
+			if ($p->provider_id != $current) {
+				$plan_list = array();
+				$plans[$p->name] = $plan_list;
+				array_push($plan_list, $p->plan_name);
+				$current = $p->provider_id;
+			} else {
+				array_push($plan_list, $p->plan_name);
+				$plans[$p->name] = $plan_list;
+			}
+		}
+		// echo "<pre>";
 		// print_r($plans);
-		return $q->result();
+		// echo "</pre>";
+		return $plans;
 	}
 
 	function getQuestionHistory($user_id)
