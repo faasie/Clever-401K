@@ -71,7 +71,7 @@ class Dashboard_model extends CI_model
 
 	function getQuestionHistory($user_id)
 	{
-		$this->db->select('date_taken')
+		$this->db->select('date_taken, risk_score')
 			->from('u_answer_sets')
 			->where('user_id', $user_id);
 		$q = $this->db->get();

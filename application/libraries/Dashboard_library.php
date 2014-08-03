@@ -58,9 +58,14 @@ class Dashboard_library
 			echo "No questionaires on record.";
 			echo "<br /><br />";
 		} else {
-			$this->CI->table->set_heading('Date Taken', 'View Questionaire');
+			$this->CI->table->set_heading('Date Taken', 'Risk Score', 'Risk Range', 'View Questionaire');
 			foreach ($this->_data['history'] as $q) {
-				$this->CI->table->add_row($q->date_taken, "click");
+				
+				if($q->risk_score >= 1 && $q->risk_score <= 1.99) { $risk_range = "Low"; }
+				elseif ($q->risk_score >= 2 && $q->risk_score <=3.99) { $risk_range = "Medium"; }
+				elseif ($q->risk_score >= 4) { $risk_range = "High"; }
+
+				$this->CI->table->add_row($q->date_taken, $q->risk_score, $risk_range, "click");
 			}
 		echo $this->CI->table->generate();
 		}

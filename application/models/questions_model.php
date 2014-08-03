@@ -33,11 +33,12 @@ class Questions_model extends CI_Model {
 		return $questions;
 	}	
 
-	function createDataSet($user_id)
+	function createDataSet($user_id, $score)
 	{
 		$today = date("Y-m-d H:i:s");
 		$data = array(
 			'user_id' => $user_id,
+			'risk_score' => $score,
 			'date_taken' => $today
 			);
 
@@ -45,10 +46,20 @@ class Questions_model extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	// function insertData()
-	// {
+	function calculateRiskScore()
+	{
+		$risk = 0;
 
-	// }
+		$query = $this->db->select('question_id')->from('q_questions')->where('category_id', '3');
+		$num_questions = $query->count_all_results();
+		$this->db->select('question_id')->from('q_questions')->where('category_id', '3');
+		$q = $this->db->get();
+		foreach ($q->result() as $row) {
+			$risk += $this->input->post($row->question_id);
+		}
+
+		return $risk/$num_questions;
+	}
 }
 
 /* End of file questions_model.php */

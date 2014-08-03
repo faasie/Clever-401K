@@ -23,7 +23,7 @@ class Question {
 						echo '<div class="col-sm-4">';
 						$data = array(
 							'id' 	=> $this->id,
-							'name' 	=> $this->question_name,
+							'name' 	=> $this->id,
 							'value' => set_value($this->id),
 							'class' => 'form-control'
 							);
@@ -33,14 +33,13 @@ class Question {
 						foreach ($this->answers as $id => $a) {
 							echo '<div class="radio">';
 								echo '<label>';
-								echo "<input type='radio' name='" . $this->question_name . "' value='" . set_radio($this->question_name, $a['value']) . "'>";
-								// $data = array(
-								// 	'name'	=> $this->question_name,
-								// 	// 'id'	=> $id,
-								// 	'value'	=> set_radio($this->question_name, $a['value'])
-								// 	// 'value'	=> $a['value']
-								// 	);
-								// echo form_radio($data);
+								$data = array(
+									'name'		=> $this->id,
+									'id'		=> $id,
+									'value'		=> $a['value'],
+									'checked'	=> set_radio($this->id, $a['value'])
+									);
+								echo form_radio($data);
 								echo $a['answer'];
 								echo '</label>';
 							echo '</div>';
