@@ -52,10 +52,12 @@ class Questions_model extends CI_Model {
 
 		$query = $this->db->select('question_id')->from('q_questions')->where('category_id', '3');
 		$num_questions = $query->count_all_results();
-		$this->db->select('question_id')->from('q_questions')->where('category_id', '3');
+		$this->db->select('question_id, weight')->from('q_questions')->where('category_id', '3');
 		$q = $this->db->get();
 		foreach ($q->result() as $row) {
-			$risk += $this->input->post($row->question_id);
+			// echo "Current Risk: " . $risk . "<br>";
+			// echo "ID: " . 
+			$risk += $this->input->post($row->question_id) * $row->weight;
 		}
 
 		return $risk/$num_questions;
