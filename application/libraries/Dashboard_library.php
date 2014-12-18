@@ -65,7 +65,9 @@ class Dashboard_library
 				elseif ($q->risk_score >= 2 && $q->risk_score <=3.99) { $risk_range = "Medium"; }
 				elseif ($q->risk_score >= 4) { $risk_range = "High"; }
 
-				$this->CI->table->add_row($q->date_taken, $q->risk_score, $risk_range, "click", "report");
+				$d = explode(" ", $q->date_taken);
+				$segments = array('report', 'index', $d[0], round($q->risk_score));
+				$this->CI->table->add_row($q->date_taken, $q->risk_score, $risk_range, "click", anchor(site_url($segments), 'Report'));
 			}
 		echo $this->CI->table->generate();
 		}
